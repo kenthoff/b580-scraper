@@ -13,10 +13,15 @@ def is_in_stock():
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "html.parser")
 
-    # "Sold Out" button class often has "btn-disabled" or actual text
-    sold_out_element = soup.find(string=lambda s: s and "SOLD OUT at Yonkers Store" in s.lower())
+    # Only search inside divs with class="inventory"
+    inventory_div = soup.find("div", class_="inventory")
 
-    return sold_out_element is None
+    # Check for "SOLD OUT" inside that div
+    sold_out_element = None
+    if inventory_div:
+        sold_out_element = inventory_div.find(string=lambda s: s and "sold out" in s.lower())
+
+    return sold_out_element is None  # True if NOT sold out
 
 def send_email():
     msg = MIMEText("The Intel Arc A580 is IN STOCK at MicroCenter!\n\nCheck here:\nhttps://www.microcenter.com/product/689241/intel-arc-b580-limited-edition-dual-fan-12gb-gddr6-pcie-40-graphics-card?storeid=105")

@@ -1,3 +1,6 @@
+# from dotenv import load_dotenv
+# load_dotenv()
+
 import requests
 from bs4 import BeautifulSoup
 import smtplib
@@ -11,7 +14,7 @@ def is_in_stock():
     soup = BeautifulSoup(r.text, "html.parser")
 
     # "Sold Out" button class often has "btn-disabled" or actual text
-    sold_out_element = soup.find(string=lambda s: s and "sold out" in s.lower())
+    sold_out_element = soup.find(string=lambda s: s and "SOLD OUT at Yonkers Store" in s.lower())
 
     return sold_out_element is None
 

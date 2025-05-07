@@ -1,5 +1,5 @@
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 import requests
 from bs4 import BeautifulSoup
@@ -19,7 +19,7 @@ def is_in_stock():
     return sold_out_element is None
 
 def send_email():
-    msg = MIMEText("The Intel Arc A580 is IN STOCK at MicroCenter!\n\nCheck here:\nhttps://www.microcenter.com/product/689241")
+    msg = MIMEText("The Intel Arc A580 is IN STOCK at MicroCenter!\n\nCheck here:\nhttps://www.microcenter.com/product/689241/intel-arc-b580-limited-edition-dual-fan-12gb-gddr6-pcie-40-graphics-card?storeid=105")
     msg['Subject'] = "Intel Arc A580 AVAILABLE!"
     msg['From'] = os.environ['EMAIL_FROM']
     msg['To'] = os.environ['EMAIL_TO']
